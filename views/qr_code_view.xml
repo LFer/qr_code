@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="course_form_view">
+            <field name="name">qr.code.form</field>
+            <field name="model">qr.code</field>
+            <field name="arch" type="xml">
+                <form string="QR Code">
+                    <sheet>
+                        <button name="get_qr" type="object" string="Test"/>
+                        <group>
+                            <field name="alumno"/>
+                            <field name="nacimiento"/>
+                            <field name="comentarios"/>
+                        </group>
+                        <group string="Codigo QR">
+                        <field name="cfdi_cbb" widget='image' nolabel='1'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="code_tree_view">
+            <field name="name">qr.tree</field>
+            <field name="model">qr.code</field>
+            <field name="arch" type="xml">
+                <tree string="QR Code Tree">
+                    <field name="cfdi_cbb"/>
+                    <field name="img"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="qr_code_action">
+            <field name="name">QR Codes</field>
+            <field name="res_model">qr.code</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- top level menu: no parent -->
+        <menuitem id="main_qr_code_menu" name="QR Codes"/>
+
+
+        <menuitem id="qr_code_menu" name="QR"
+                  parent="main_qr_code_menu"/>
+
+        <menuitem id="courses_menu" name="Courses" parent="qr_code_menu"
+                  action="qr_code_action"/>
+
+    </data>
+</openerp>
